@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <style>
+    body {
+      font-family: Arial;
+      background-color: #f4f4f4;
+      padding: 20px;
+    }
+    .container {
+      max-width: 400px;
+      margin: auto;
+      background: white;
+      padding: 20px;
+      border-radius: 10px;
+      box-shadow: 0px 0px 10px rgba(0,0,0,0.1);
+    }
+    h2 {
+      text-align: center;
+    }
+    label {
+      display: block;
+      margin-top: 10px;
+      font-weight: bold;
+    }
+    input[type="text"], input[type="password"] {
+      width: 100%;
+      padding: 8px;
+      margin-top: 5px;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+    }
+    .btns {
+      text-align: center;
+      margin-top: 15px;
+    }
+    button {
+      padding: 10px 20px;
+      margin: 5px;
+      font-weight: bold;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+    .reset { background-color: #ccc; }
+    .submit { background-color: #4CAF50; color: white; }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h2>Login</h2>
+    <form>
+      <label for="login">Login:</label>
+      <input type="text" id="login" name="login" required>
+
+      <label for="password">Password:</label>
+      <input type="password" id="password" name="password" required>
+
+      <div class="btns">
+        <button type="reset" class="reset">Reset</button>
+        <button type="submit" class="submit">Submit</button>
+      </div>
+    </form>
+  </div>
+</body>
+</html>

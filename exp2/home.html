@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>3 Frame Layout</title>
+  <style>
+    body {
+      margin: 0;
+      height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .top-frame {
+      height: 100px;
+      width: 100%;
+      border: none;
+    }
+
+    .main-container {
+      flex: 1;
+      display: flex;
+    }
+
+   
+    .left-frame {
+      width: 10%;
+      border: none;
+    }
+
+    .right-frame {
+      flex: 1;
+      border: none;
+    }
+  </style>
+</head>
+<body>
+
+
+  <iframe class="top-frame" src="top.html" name="topFrame"></iframe>
+
+ 
+  <div class="main-container">
+    <iframe class="left-frame" src="left.html" name="leftFrame"></iframe>
+    <iframe class="right-frame" src="main.html" name="rightFrame"></iframe>
+  </div>
+
+</body>
+</html>
