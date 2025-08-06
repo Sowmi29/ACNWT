@@ -3,13 +3,27 @@
 <head>
   <style>
     body { background-color: #e0e0e0; font-family: Arial; padding: 10px; }
-    a { display: block; margin-bottom: 15px; color: darkblue; font-weight: bold; text-decoration: none; }
+    a {
+      display: block;
+      margin-bottom: 15px;
+      color: darkblue;
+      font-weight: bold;
+      text-decoration: none;
+      cursor: pointer;
+    }
   </style>
 </head>
 <body>
-  <a href="cse.html" target="mainFrame">CSE</a>
-  <a href="ece.html" target="mainFrame">ECE</a>
-  <a href="eee.html" target="mainFrame">EEE</a>
-  <a href="civil.html" target="mainFrame">CIVIL</a>
+  <a onclick="sendDept('CSE')">CSE</a>
+  <a onclick="sendDept('ECE')">ECE</a>
+  <a onclick="sendDept('EEE')">EEE</a>
+  <a onclick="sendDept('CIVIL')">CIVIL</a>
+
+  <script>
+    function sendDept(dept) {
+      const rightFrame = parent.frames['rightFrame'];
+      rightFrame.postMessage({ department: dept }, '*');
+    }
+  </script>
 </body>
 </html>
