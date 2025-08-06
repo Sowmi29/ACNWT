@@ -20,10 +20,6 @@
       background-color: #4CAF50;
       color: white;
     }
-    img {
-      width: 50px;
-      height: auto;
-    }
     button {
       padding: 6px 12px;
       background-color: #4CAF50;
@@ -38,48 +34,71 @@
   </style>
 </head>
 <body>
-  <h2>Book Catalogue</h2>
-  <table>
+  <h2 id="deptTitle">Book Catalogue</h2>
+  <table id="bookTable">
     <tr>
-      <th>Cover</th>
       <th>Title</th>
       <th>Author</th>
       <th>Publisher</th>
       <th>Price (₹)</th>
       <th>Action</th>
     </tr>
-    <tr>
-      
-      <td>XML Bible</td>
-      <td>Winston</td>
-      <td>Wiely</td>
-      <td>40.5</td>
-      <td><button>Add to Cart</button></td>
-    </tr>
-    <tr>
-      
-      <td>Artificial Intelligence</td>
-      <td>S. Russel</td>
-      <td>Princeton Hall</td>
-      <td>63</td>
-      <td><button>Add to Cart</button></td>
-    </tr>
-    <tr>
-      
-      <td>Java 2</td>
-      <td>Watson</td>
-      <td>BPB Publications</td>
-      <td>35.5</td>
-      <td><button>Add to Cart</button></td>
-    </tr>
-    <tr>
-      
-      <td>HTML in 24 Hours</td>
-      <td>Sam Peter</td>
-      <td>Sam Publication</td>
-      <td>50</td>
-      <td><button>Add to Cart</button></td>
-    </tr>
   </table>
+
+  <script>
+    const booksByDept = {
+      CSE: [
+        { title: "Artificial Intelligence", author: "S. Russel", publisher: "Princeton", price: 63 },
+        { title: "Java 2", author: "Watson", publisher: "BPB", price: 35.5 },
+      ],
+      ECE: [
+        { title: "DSP", author: "Proakis", publisher: "McGraw Hill", price: 70 }
+      ],
+      EEE: [
+        { title: "Electrical Machines", author: "Nagrath", publisher: "TMH", price: 55 }
+      ],
+      CIVIL: [
+        { title: "Concrete Structures", author: "Jain", publisher: "Pearson", price: 80 }
+      ]
+    };
+
+   
+    if (!localStorage.getItem('books')) {
+      localStorage.setItem('books', JSON.stringify(booksByDept));
+    }
+
+    function renderBooks(dept) {
+      const allBooks = JSON.parse(localStorage.getItem('books'));
+      const books = allBooks[dept] || [];
+
+      document.getElementById('deptTitle').textContent = dept + " Department Books";
+
+      const table = document.getElementById('bookTable');
+     
+      table.querySelectorAll('tr:not(:first-child)').forEach(row => row.remove());
+
+      books.forEach(book => {
+        const row = document.createElement('tr');
+        row.innerHTML = `
+          <td>${book.title}</td>
+          <td>${book.author}</td>
+          <td>${book.publisher}</td>
+          <td>${book.price}</td>
+          <td><button>Add to Cart</button></td>
+        `;
+        table.appendChild(row);
+      });
+    }
+
+   
+    window.addEventListener('message', (event) => {
+      if (event.data && event.data.department) {
+        renderBooks(event.data.department);
+      }
+    });
+
+    
+    renderBooks('CSE');
+  </script>
 </body>
 </html>
