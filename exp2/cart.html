@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Cart</title>
+  <style>
+    body {
+      font-family: Arial;
+      padding: 20px;
+    }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 15px;
+    }
+    th, td {
+      border: 1px solid #ddd;
+      padding: 12px;
+      text-align: center;
+    }
+    th {
+      background-color: #4CAF50;
+      color: white;
+    }
+    .total {
+      margin-top: 20px;
+      font-size: 18px;
+      font-weight: bold;
+    }
+  </style>
+</head>
+<body>
+  <h2>Your Cart</h2>
+  <table id="cartTable">
+    <tr>
+      <th>Title</th>
+      <th>Author</th>
+      <th>Publisher</th>
+      <th>Price (₹)</th>
+    </tr>
+  </table>
+  <div class="total" id="totalPrice"></div>
+
+  <script>
+    const cart = JSON.parse(localStorage.getItem('cart')) || [];
+
+    const table = document.getElementById('cartTable');
+    let total = 0;
+
+    cart.forEach(book => {
+      const row = document.createElement('tr');
+      row.innerHTML = `
+        <td>${book.title}</td>
+        <td>${book.author}</td>
+        <td>${book.publisher}</td>
+        <td>${book.price}</td>
+      `;
+      total += parseFloat(book.price);
+      table.appendChild(row);
+    });
+
+    document.getElementById('totalPrice').textContent = `Total: ₹${total.toFixed(2)}`;
+  </script>
+</body>
+</html>
