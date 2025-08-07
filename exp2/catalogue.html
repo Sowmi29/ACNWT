@@ -45,60 +45,69 @@
     </tr>
   </table>
 
-  <script>
-    const booksByDept = {
-      CSE: [
-        { title: "Artificial Intelligence", author: "S. Russel", publisher: "Princeton", price: 63 },
-        { title: "Java 2", author: "Watson", publisher: "BPB", price: 35.5 },
-      ],
-      ECE: [
-        { title: "DSP", author: "Proakis", publisher: "McGraw Hill", price: 70 }
-      ],
-      EEE: [
-        { title: "Electrical Machines", author: "Nagrath", publisher: "TMH", price: 55 }
-      ],
-      CIVIL: [
-        { title: "Concrete Structures", author: "Jain", publisher: "Pearson", price: 80 }
-      ]
-    };
+ <script>
+  const booksByDept = {
+    CSE: [
+      { title: "Artificial Intelligence", author: "S. Russel", publisher: "Princeton", price: 63 },
+      { title: "Java 2", author: "Watson", publisher: "BPB", price: 35.5 },
+    ],
+    ECE: [
+      { title: "DSP", author: "Proakis", publisher: "McGraw Hill", price: 70 }
+    ],
+    EEE: [
+      { title: "Electrical Machines", author: "Nagrath", publisher: "TMH", price: 55 }
+    ],
+    CIVIL: [
+      { title: "Concrete Structures", author: "Jain", publisher: "Pearson", price: 80 }
+    ]
+  };
 
-   
-    if (!localStorage.getItem('books')) {
-      localStorage.setItem('books', JSON.stringify(booksByDept));
-    }
+  
+  if (!localStorage.getItem('books')) {
+    localStorage.setItem('books', JSON.stringify(booksByDept));
+  }
 
-    function renderBooks(dept) {
-      const allBooks = JSON.parse(localStorage.getItem('books'));
-      const books = allBooks[dept] || [];
+  if (!localStorage.getItem('cart')) {
+    localStorage.setItem('cart', JSON.stringify([]));
+  }
 
-      document.getElementById('deptTitle').textContent = dept + " Department Books";
+  function renderBooks(dept) {
+    const allBooks = JSON.parse(localStorage.getItem('books'));
+    const books = allBooks[dept] || [];
 
-      const table = document.getElementById('bookTable');
-     
-      table.querySelectorAll('tr:not(:first-child)').forEach(row => row.remove());
+    document.getElementById('deptTitle').textContent = dept + " Department Books";
 
-      books.forEach(book => {
-        const row = document.createElement('tr');
-        row.innerHTML = `
-          <td>${book.title}</td>
-          <td>${book.author}</td>
-          <td>${book.publisher}</td>
-          <td>${book.price}</td>
-          <td><button>Add to Cart</button></td>
-        `;
-        table.appendChild(row);
-      });
-    }
+    const table = document.getElementById('bookTable');
+    table.querySelectorAll('tr:not(:first-child)').forEach(row => row.remove());
 
-   
-    window.addEventListener('message', (event) => {
-      if (event.data && event.data.department) {
-        renderBooks(event.data.department);
-      }
+    books.forEach((book, index) => {
+      const row = document.createElement('tr');
+      row.innerHTML = `
+        <td>${book.title}</td>
+        <td>${book.author}</td>
+        <td>${book.publisher}</td>
+        <td>${book.price}</td>
+        <td><button onclick='addToCart(${JSON.stringify(book)})'>Add to Cart</button></td>
+      `;
+      table.appendChild(row);
     });
+  }
 
-    
-    renderBooks('CSE');
-  </script>
+  function addToCart(book) {
+    let cart = JSON.parse(localStorage.getItem('cart')) || [];
+    cart.push(book);
+    localStorage.setItem('cart', JSON.stringify(cart));
+    alert(`Added "${book.title}" to cart!`);
+  }
+
+  window.addEventListener('message', (event) => {
+    if (event.data && event.data.department) {
+      renderBooks(event.data.department);
+    }
+  });
+
+  renderBooks('CSE');
+</script>
+
 </body>
 </html>
