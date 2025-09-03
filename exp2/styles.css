@@ -20,7 +20,10 @@
 
 body {
   font-family: 'Poppins', sans-serif;
-  background-color: #f5f7fa;
+  background-image: url("./bg.jpg"); 
+  background-size: cover;     
+  background-repeat: no-repeat; 
+  background-position: center; 
   color: var(--dark-color);
   line-height: 1.6;
   padding: 20px;
@@ -318,4 +321,5 @@ textarea {
   .btn {
     width: 100%;
   }
+
 }
